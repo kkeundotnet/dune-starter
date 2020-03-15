@@ -16,7 +16,7 @@ $ git add .
 ```
 
 The shell script `init.sh` will ask you about some information that
-are required to setting start files including the project name, the
+are required to set the project files, e.g. the project name, the
 target directory, etc..
 
 Play around and make sure everything works. Try `make`, `make test`,
