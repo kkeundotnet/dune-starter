@@ -1,28 +1,29 @@
-# Dune starter kit
+# Dune starter
 
-This repository provides templates to help you start an
-OCaml project. It can be used to create multiple libraries, multiple
-executables, and test suites.
+This repository provides templates to help you start an OCaml project.
+It can be used to create libraries, executables, and test suites.
 
-The project is structured as a collection of mostly self-contained
-subprojects, each with its source code and tests.
+## How to set up
 
-Requirements: opam, git, make, dune, alcotest.
+```
+$ git clone https://github.com/kkeundotnet/dune-starter
+$ cd dune-starter
+$ bash init.sh
+...
+$ cd <target directory>
+$ git init
+$ git add .
+```
 
-## How to set up your OCaml project:
+The shell script `init.sh` will ask you about some information that
+are required to setting start files including the project name, the
+target directory, etc..
 
-1. Clone this repository:
-   `git clone https://github.com/mjambon/dune-starter`
-2. Copy files into a git repository e.g.
-   `cp -a dune-starter/proj foobar`,
-   `cd foobar && git init && git add .`
-3. Play around and make sure everything works. Try `make`, `make test`,
-   `make install`, `make uninstall`, `make clean`.
-   Consult the project's readme (`proj/README.md`) for more info.
-4. Replace occurrences of `proj`, `sub1` and `sub2` by your own names.
-   Rename, throw away, and add files as needed.
-5. Consult the [dune docs](https://dune.readthedocs.io/) as
-   needed.
+Play around and make sure everything works. Try `make`, `make test`,
+`make clean`.
 
-Thanks to the authors of dune and @rgrinberg in particular for
-this great tool!
+Consult the [dune docs](https://dune.readthedocs.io/) as needed.
+
+Thanks to @mjambon, the original author of the dune-starter.  Thanks
+to the authors of dune and @rgrinberg in particular for this great
+tool!

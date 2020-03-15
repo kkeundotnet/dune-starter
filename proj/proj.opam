@@ -1,12 +1,12 @@
 opam-version: "2.0"
-maintainer: "YOUR EMAIL ADDRESS"
-authors: ["YOUR NAME"]
-homepage: "https://github.com/USERNAME/proj"
-bug-reports: "https://github.com/USERNAME/proj/issues"
-dev-repo: "git+https://github.com/USERNAME/proj.git"
+maintainer: "author_email"
+authors: ["author_name"]
+homepage: "https://github.com/github_id/proj"
+bug-reports: "https://github.com/github_id/proj/issues"
+dev-repo: "git+https://github.com/github_id/proj.git"
 
-synopsis: "Scripts for OCaml projects"
-description: "description here"                    
+synopsis: "project_synopsis"
+description: "TODO: full description"
 
 build: [
   ["dune" "subst"] {pinned}

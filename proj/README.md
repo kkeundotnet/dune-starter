@@ -1,46 +1,32 @@
-_Catchy headline_
-==
+Proj
+===
 
-_Project description_
+project_synopsis
 
-How to build the project
---
+Build
+---
 
-Run `make` to compile the libraries and executables that are
-meant to be installed.
 ```
 $ make
 ```
 
-How to run tests
---
+Run tests
+---
 
 ```
 $ make test
 ```
 
-Installation
---
+Install
+---
 
-The project can be installed with or without opam.
-Without opam, you can run the following which relies directly on
-dune:
-```
-$ make install
-```
-Similarly:
-```
-$ make uninstall
-```
-
-With opam, you can install the current development version of your
-project as a single opam package. It will override the currently
-installed package of the same name, if any:
 ```
 $ opam pin add proj .
 ```
-For more information on `opam pin`, please consult the opam documentation.
 
-The advantage of the opam-based method is that other opam packages can
-depend on this one, and opam will recompile them automatically as
-necessary.
+or
+
+```
+$ make install
+$ make uninstall
+```
