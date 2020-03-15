@@ -1,18 +1,20 @@
-opam-version: "1.2"
+opam-version: "2.0"
 maintainer: "YOUR EMAIL ADDRESS"
 authors: ["YOUR NAME"]
 homepage: "https://github.com/USERNAME/proj"
 bug-reports: "https://github.com/USERNAME/proj/issues"
-dev-repo: "https://github.com/USERNAME/proj.git"
+dev-repo: "git+https://github.com/USERNAME/proj.git"
+
+synopsis: "Scripts for OCaml projects"
+description: "description here"                    
 
 build: [
   ["dune" "subst"] {pinned}
   ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
 ]
-
-build-test: ["dune" "runtest" "-p" name]
 
 depends: [
   "dune" {build}
-  "alcotest" {test}
+  "alcotest" {with-test}
 ]
