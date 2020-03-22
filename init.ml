@@ -2,6 +2,7 @@ module F = Format
 
 type t = {
   proj : string;
+  proj_big : string;
   project_synopsis : string;
   author_name : string;
   author_email : string;
@@ -9,37 +10,50 @@ type t = {
   target : string;
 }
 
-let pp { proj; project_synopsis; author_name; author_email; github_id; target }
-    =
+let pp
+    {
+      proj;
+      proj_big;
+      project_synopsis;
+      author_name;
+      author_email;
+      github_id;
+      target;
+    } =
   F.fprintf F.std_formatter
-    "Project name: %s@\n\
+    "Project name: %s (module %s)@\n\
      Project synopsis: %s@\n\
      Author name: %s@\n\
      Author email: %s@\n\
      GitHub ID: %s@\n\
-     Target directory: %s@." proj project_synopsis author_name author_email
-    github_id target
+     Target directory: %s@." proj proj_big project_synopsis author_name
+    author_email github_id target
 
 (* Replace *)
 
 let replace from to_ line = Str.global_replace (Str.regexp_string from) to_ line
 
-let replace_proj proj line =
+let replace_proj proj proj_big line =
   if line = "dune-project" then line
-  else
-    replace "proj" (String.uncapitalize_ascii proj) line
-    |> replace "Proj" (String.capitalize_ascii proj)
+  else replace "proj" proj line |> replace "Proj" proj_big
 
 let replace_rev
-    { proj; project_synopsis; author_name; author_email; github_id; target }
-    lines =
+    {
+      proj;
+      proj_big;
+      project_synopsis;
+      author_name;
+      author_email;
+      github_id;
+      target;
+    } lines =
   let replace_line line =
     replace "project_name" proj line
     |> replace "project_synopsis" project_synopsis
     |> replace "author_name" author_name
     |> replace "author_email" author_email
     |> replace "github_id" github_id
-    |> replace_proj proj
+    |> replace_proj proj proj_big
   in
   let rec replace_rev lines rev =
     match lines with
@@ -78,12 +92,27 @@ let rec ask_project_synopsis () =
 
 let rec ask_proj () =
   let s = ask_non_space "Project name" in
-  if Str.string_match (Str.regexp {|^[a-zZ-Z]+$|}) s 0 then s
+  if
+    Str.string_match (Str.regexp {|^[a-z]+$|}) s 0
+    || Str.string_match (Str.regexp {|^[a-z][a-z\-]+[a-z]$|}) s 0
+  then s
   else (
     print_endline
-      "Only the words containing alphabets is supported as a project name. \
-       Sorry.";
+      "Small alphabet letters and dash are permited as a project name. Sorry.";
     ask_proj () )
+
+let get_big s =
+  let buf = Buffer.create 20 in
+  let dash = ref false in
+  for i = 0 to String.length s - 1 do
+    if i = 0 then Buffer.add_char buf (Char.uppercase_ascii s.[i])
+    else if s.[i] = '-' then dash := true
+    else if !dash then (
+      dash := false;
+      Buffer.add_char buf (Char.uppercase_ascii s.[i]) )
+    else Buffer.add_char buf s.[i]
+  done;
+  Buffer.contents buf
 
 let rec ask_directory () =
   let s = ask_non_space "Target directory" in
@@ -162,20 +191,29 @@ let rec cp_dir v from to_ =
   |> Array.iter (fun file ->
          let base = Filename.basename file in
          let from = Filename.concat from base in
-         let to_ = Filename.concat to_ (replace_proj v.proj base) in
+         let to_ = Filename.concat to_ (replace_proj v.proj v.proj_big base) in
          if Sys.is_directory from then cp_dir v from to_ else cp_file v from to_)
 
 let do_init v = cp_dir v "proj" v.target
 
 let main () =
   let proj = ask_proj () in
+  let proj_big = get_big proj in
   let project_synopsis = ask_project_synopsis () in
   let author_name = ask "Author name" in
   let author_email = ask_non_space "Author email" in
   let github_id = ask_non_space "GitHub ID" in
   let target = ask_directory () in
   let v =
-    { proj; project_synopsis; author_name; author_email; github_id; target }
+    {
+      proj;
+      proj_big;
+      project_synopsis;
+      author_name;
+      author_email;
+      github_id;
+      target;
+    }
   in
   print_newline ();
   pp v;

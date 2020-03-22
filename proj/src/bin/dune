@@ -1,7 +1,6 @@
 ; names = name of the files to compile into executables
 ; public_names = name of the executables
 (executables
- (names proj)
+ (names Proj)
  (public_names proj)
- (libraries proj.lib)
- (package proj))
+ (libraries proj.lib))

@@ -1,4 +1,4 @@
-Proj
+proj
 ===
 
 project_synopsis

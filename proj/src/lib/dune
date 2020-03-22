@@ -1,6 +1,6 @@
 ; name = OCaml module name
 ; public_name = dependency name in dune
 (library
- (name proj_lib)
+ (name Proj_lib)
  (public_name proj.lib)
  (libraries))
