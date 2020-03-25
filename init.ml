@@ -94,11 +94,11 @@ let rec ask_proj () =
   let s = ask_non_space "Project name" in
   if
     Str.string_match (Str.regexp {|^[a-z]+$|}) s 0
-    || Str.string_match (Str.regexp {|^[a-z][a-z\-]+[a-z]$|}) s 0
+    || Str.string_match (Str.regexp {|^[a-z][a-z\-_]+[a-z]$|}) s 0
   then s
   else (
     print_endline
-      "Small alphabet letters and dash are permited as a project name. Sorry.";
+      "Small alphabet letters, '-', and '_' are permited as a project name.";
     ask_proj () )
 
 let get_big s =
