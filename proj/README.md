@@ -8,12 +8,6 @@ Build
 
 ```
 $ make
-```
-
-Run tests
----
-
-```
 $ make test
 ```
 
@@ -21,7 +15,8 @@ Install
 ---
 
 ```
-$ opam pin add proj .
+$ opam pin add proj https://github.com/github_id/proj.git
+$ opam pin remove proj
 ```
 
 or
