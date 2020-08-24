@@ -94,7 +94,7 @@ let rec ask_proj () =
   let s = ask_non_space "Project name" in
   if
     Str.string_match (Str.regexp {|^[a-z]+$|}) s 0
-    || Str.string_match (Str.regexp {|^[a-z][a-z\-_]+[a-z]$|}) s 0
+    || Str.string_match (Str.regexp {|^[a-z][a-z_-]+[a-z]$|}) s 0
   then s
   else (
     print_endline
